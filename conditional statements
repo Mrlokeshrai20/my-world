@@ -1,0 +1,56 @@
+1.} What is the purpose of the ternary operator in Java?
+
+
+a. To perform arithmetic operations
+b. To create a switch statement
+c. To simplify conditional expressions by returning one of two values based on a condition
+d. To define custom methods
+
+
+
+2.} Which of the following is not a valid Java comparison operator?
+
+
+a. == (equal to)
+b. != (not equal to)
+c. < (less than)
+d. => (greater than or equal to)
+
+
+
+3.} What is the result of the following code?
+     int x = 5;
+    String result = (x > 10) ? "x is greater than 10" : "x is not greater than 10";
+
+
+a. value "x is greater than 10."
+b. value "x is not greater than 10."
+c. compilation error.
+d. runtime error
+
+
+
+4.} Which of the following is a valid way to compare two strings for equality in Java?
+a. str1 == str2
+b. str1.equals(str2)
+c. str1.compareTo(str2) == 0
+d. All of the above
+
+
+
+5.} What will be the output of following code?
+int number = 7;
+if (number % 2 == 0)
+    System.out.println("Even");
+else
+    System.out.println("Odd");
+
+
+a. "Even"
+b. "Odd"
+c. "7 is even"
+d. "7 is odd"
+
+
+
+Answer Key- 1.{C}, 2.(d}, 3.{b}, 4.{b}, 5.{b}
