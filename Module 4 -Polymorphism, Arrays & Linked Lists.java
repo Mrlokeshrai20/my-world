@@ -73,3 +73,76 @@ c. Efficient memory usage
 d. Fixed size
 
 Answer: c
+
+
+Question 8: What will be the output of the following Java code?
+  class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListQuestion6 {
+    public static void main(String[] args) {
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
+        Node node3 = new Node(3);
+        node1.next = node2;
+        node2.next = node3;
+
+        Node current = node1;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+    }
+}
+
+a) 1 2 3
+b) 3 2 1
+c) 1 2
+d) 3 2
+
+
+Question 9: What will be the output of the following Java code?
+  class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListQuestion5 {
+    public static void main(String[] args) {
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
+        node1.next = node2;
+        System.out.println(node1.next.data);
+    }
+}
+
+a) 1
+b) 2
+c) null
+d) Compilation Error
+
+
+Question 10: What will be the output of the following Java code?
+  public class ArraysQuestion4 {
+    public static void main(String[] args) {
+        String[] names = {"Alice", "Bob", "Charlie", "David"};
+        System.out.println(names.length);
+    }
+}
+
+a) 1
+b) 2
+c) 3
+d) 4
