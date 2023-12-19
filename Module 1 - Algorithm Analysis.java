@@ -50,3 +50,75 @@ c. O(n)
 d. O(n^2)
 
 Answer: a
+
+// Question 6 to 10 will be give from below code//
+  public class AlgorithmAnalysis {
+    public static void main(String[] args) {
+        int[] numbers = {5, 3, 8, 2, 7};
+
+        // Question 1
+        System.out.println("Question 1:");
+        System.out.println(findMax(numbers));
+
+        // Question 2
+        System.out.println("Question 2:");
+        System.out.println(findMin(numbers));
+    }
+
+    // Find the maximum value in an array
+    private static int findMax(int[] arr) {
+        int max = Integer.MIN_VALUE;
+        for (int num : arr) {
+            if (num > max) {
+                max = num;
+            }
+        }
+        return max;
+    }
+
+    // Find the minimum value in an array
+    private static int findMin(int[] arr) {
+        int min = Integer.MAX_VALUE;
+        for (int num : arr) {
+            if (num < min) {
+                min = num;
+            }
+        }
+        return min;
+    }
+}
+
+
+Question 6: How many iterations will the findMax method perform in the given code?
+
+a) 5
+b) 4
+c) 3
+d) 2
+
+Question 7: What is the space complexity of the findMin method in the given code?
+
+a) O(1)
+b) O(n)
+c) O(n^2)
+d) O(log n)
+
+
+Question 8: Which method is more likely to have better performance in terms of time complexity?
+
+a) findMax
+b) findMin
+
+Question 9: What will be the output of the following Java code?
+
+a) 2
+b) 5
+c) 3
+d) 8
+
+Question 10:In Big O notation, what is the worst-case time complexity of the findMax method?
+
+a) O(1)
+b) O(n)
+c) O(n^2)
+d) O(log n)
