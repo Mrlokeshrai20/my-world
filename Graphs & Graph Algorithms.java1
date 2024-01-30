@@ -1,0 +1,1461 @@
+1.public boolean hasCycle(List<List<Integer>> graph, int vertices) {
+    int[] parent = new int[vertices];
+    Arrays.fill(parent, -1);
+
+    for (int u = 0; u < vertices; u++) {
+        for (int v : graph.get(u)) {
+            int x = find(parent, u);
+            int y = find(parent, v);
+
+            if (x == y) return true;
+
+            union(parent, x, y);
+        }
+    }
+    return false;
+}
+
+private int find(int[] parent, int i) {
+    if (parent[i] == -1) return i;
+    return find(parent, parent[i]);
+}
+
+private void union(int[] parent, int x, int y) {
+    int xset = find(parent, x);
+    int yset = find(parent, y);
+    if (xset != yset) {
+        parent[xset] = yset;
+    }
+}
+
+Which algorithm is used to detect cycles in an undirected graph?
+A) Kruskal’s Algorithm
+B) Prim’s Algorithm
+C) Dijkstra's Algorithm
+D) Union-Find Algorithm
+
+
+  2.public int[] dijkstra(int startVertex, int vertices, List<List<Pair<Integer, Integer>>> graph) {
+    int[] dist = new int[vertices];
+    Arrays.fill(dist, Integer.MAX_VALUE);
+    dist[startVertex] = 0;
+    PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>(Comparator.comparingInt(Pair::getKey));
+    pq.offer(new Pair<>(0, startVertex));
+
+    while (!pq.isEmpty()) {
+        Pair<Integer, Integer> pair = pq.poll();
+        int vertex = pair.getValue();
+        int currentDist = pair.getKey();
+
+        if (dist[vertex] < currentDist) continue;
+
+        for (Pair<Integer, Integer> edge : graph.get(vertex)) {
+            int adjVertex = edge.getKey();
+            int weight = edge.getValue();
+            int distToAdj = currentDist + weight;
+
+            if (distToAdj < dist[adjVertex]) {
+                dist[adjVertex] = distToAdj;
+                pq.offer(new Pair<>(distToAdj, adjVertex));
+            }
+        }
+    }
+    return dist;
+}
+
+
+User
+   10 realted question for java queue 
+
+2 / 2
+
+ChatGPT
+Certainly! Here are 10 questions related to Java's Queue interface and its implementations:
+
+Basic Concept: What is a Queue in Java, and how is it different from other collections like List and Set?
+
+Queue Interface: What are the primary methods provided by the Queue interface in Java?
+
+LinkedList as Queue: How can LinkedList be used as a Queue in Java, and what are its advantages and disadvantages compared to other Queue implementations?
+
+PriorityQueue: How does a PriorityQueue work in Java, and in what scenarios is it more useful than a LinkedList?
+
+BlockingQueue: What is a BlockingQueue in Java, and how is it different from a regular Queue?
+
+ConcurrentQueue Implementations: What are the differences between ConcurrentLinkedQueue and LinkedBlockingQueue in Java?
+
+Queue Operations: How do the offer(), poll(), and peek() methods in a Queue differ from add(), remove(), and element() methods?
+
+Custom Ordering in Queue: How can you implement a custom ordering in a PriorityQueue in Java?
+
+Performance Considerations: What are the performance implications of using different types of Queues in Java for various operations like insertion, removal, and traversal?
+
+Real-World Applications: Can you provide examples of real-world scenarios where using a Queue in Java is particularly beneficial?
+
+These questions cover various aspects of the Queue interface in Java, including its usage, different implementations, and practical applications.
+
+User
+coding question
+ChatGPT
+Sure, I can help with that. Could you please specify the coding question or the type of coding problem you're interested in related to Java queues? For example, are you looking for a problem that involves implementing a specific queue functionality, solving a problem using a queue, or understanding a particular aspect of Java queue behavior? Let me know, and I'll provide a tailored question or problem!
+
+User
+queue java coding question with multipe option and answer
+ChatGPT
+Alright, I'll create a Java coding question related to the Queue interface, complete with multiple-choice options and the correct answer.
+
+Question:
+
+Consider the following Java code snippet:
+
+java
+Copy code
+import java.util.*;
+
+public class QueueExample {
+    public static void main(String[] args) {
+        Queue<Integer> queue = new LinkedList<>();
+
+        queue.offer(10);
+        queue.offer(20);
+        queue.offer(30);
+
+        System.out.println(queue.poll());
+        System.out.println(queue.peek());
+    }
+}
+
+What is the output of this program?
+
+Options:
+
+A)
+
+Copy code
+10
+20
+B)
+
+Copy code
+10
+10
+C)
+
+Copy code
+20
+30
+D)
+
+Copy code
+30
+20
+Answer:
+
+A)
+
+Copy code
+10
+20
+Explanation:
+
+The code creates a Queue of integers using a LinkedList. It then offers (adds) three integers to the queue in this order: 10, 20, 30.
+
+queue.poll() removes and returns the head of the queue, which is 10. So, the first output is 10.
+
+After the first poll, the next element in the queue (which is now the head) is 20. queue.peek() returns the head of the queue without removing it, so the second output is 20.
+
+Thus, the correct answer is A) 10 followed by 20.
+
+User
+public class StackUsingOneQueue    releted 10 question 
+ChatGPT
+Creating a class StackUsingOneQueue involves implementing a stack using a single queue as the underlying data structure. This is a challenging task because queues and stacks are fundamentally different in how they handle elements; queues are FIFO (First In First Out) and stacks are LIFO (Last In First Out). Here are 10 questions related to designing and implementing such a class:
+
+Basic Implementation: How can you implement a push operation in a StackUsingOneQueue class to maintain the LIFO order using only one queue?
+
+Efficiency of Push: In your StackUsingOneQueue implementation, what is the time complexity of the push operation?
+
+Pop Operation: How would you implement the pop operation in a StackUsingOneQueue class?
+
+Efficiency of Pop: What is the time complexity of the pop operation in your StackUsingOneQueue implementation?
+
+Handling Top Element: How can you efficiently retrieve the top element of the stack in the StackUsingOneQueue class without removing it?
+
+Size Method: How would you implement a method to get the current size of the stack in the StackUsingOneQueue class?
+
+Queue Type: Which type of Queue (e.g., LinkedList, PriorityQueue) is most suitable for implementing a StackUsingOneQueue and why?
+
+Empty Stack Handling: How does your StackUsingOneQueue handle operations like pop or top when the stack is empty?
+
+Space Complexity: What is the space complexity of your StackUsingOneQueue implementation?
+
+Comparative Analysis: Compare the performance (in terms of time complexity) of your StackUsingOneQueue with a traditional stack implementation and with a stack implemented using two queues.
+
+These questions cover the core aspects of implementing a stack using one queue, focusing on the algorithmic challenges and the efficiency of different operations.
+
+User
+10 coding question relted to stacks
+ChatGPT
+Certainly! Here are 10 coding questions related to stacks, ranging from basic operations to more complex applications:
+
+Implement Basic Stack: Write a Java class CustomStack that implements basic stack operations: push(), pop(), and peek().
+
+Balanced Parentheses: Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid and all the brackets are closed in the correct order.
+
+Next Greater Element: Given an array, print the Next Greater Element (NGE) for every element. The Next Greater Element for an element x is the first greater element on the right side of x in the array.
+
+Sort a Stack: Write a program to sort a stack in ascending order (with biggest items on top). You may use additional stacks to hold items, but you should not copy the elements into any other data structure (such as an array).
+
+Stock Span Problem: The stock span problem is a financial problem where we have a series of n daily price quotes for a stock and we need to calculate the span of stock’s price for all n days. The span Si of the stock’s price on a given day i is defined as the maximum number of consecutive days just before the given day, for which the price of the stock on the current day is less than or equal to its price on the given day.
+
+Reverse a Stack: Write a program to reverse a stack using recursion. You are not allowed to use loops or other data structures like arrays.
+
+Implement Min Stack: Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+Check for Redundant Brackets: Given a mathematical expression in the form of a string, you need to write a program to check whether redundant brackets are present in the expression or not. A set of brackets are considered to be redundant if a sub-expression is surrounded by unnecessary or needless brackets.
+
+Evaluate Reverse Polish Notation: Evaluate the value of an arithmetic expression in Reverse Polish Notation. Valid operators are +, -, *, and /. Each operand may be an integer or another expression.
+
+Infix to Postfix Conversion: Write a program to convert an infix expression to a postfix expression using a stack.
+
+These questions cover a wide range of concepts and applications of stacks, from basic operations to complex algorithmic challenges.
+
+User
+coding questions
+ChatGPT
+Sure, I can provide you with some coding questions along with brief descriptions. These questions will cover various concepts and difficulty levels.
+
+Two Sum Problem: Write a function that takes an array of integers and a target integer. The function should find two distinct integers in the array that sum up to the target value and return their indices. Assume there is exactly one solution, and you cannot use the same element twice.
+
+Reverse a String: Create a function that reverses a string. You should not use any built-in reverse methods, and aim to do this in the most efficient way possible.
+
+Check Palindrome: Write a function that checks if a given string is a palindrome. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization).
+
+Merge Sorted Arrays: You are given two sorted arrays. Write a function that merges these arrays into one single sorted array. Try not to use any built-in sorting methods.
+
+Maximum Subarray Sum: Given an integer array, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum. This is a classic problem to solve with the Kadane's algorithm.
+
+Valid Parentheses: Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. An input string is valid if open brackets are closed by the same type of brackets, and open brackets are closed in the correct order.
+
+Fibonacci Series: Write a function to calculate the nth Fibonacci number. Both iterative and recursive solutions are commonly asked in interviews.
+
+Find Duplicate in Array: Given an array of integers where each element appears twice except for one, find that single one. Try to develop a solution with linear runtime complexity and without using extra memory.
+
+Rotate Array: Rotate an array to the right by k steps, where k is non-negative. Try to come up with as many solutions as possible, then optimize for time and space complexity.
+
+Implement a Stack/Queue: Implement a basic stack or queue with its fundamental methods (push, pop, peek, etc.) without using the built-in stack or queue data structures.
+
+These questions cover a range of topics, including arrays, strings, data structures, and algorithms, and they're frequently encountered in coding interviews and assessments.
+
+User
+hash tables hashmaps hashset.java  20 coding questions with java code
+
+2 / 2
+
+ChatGPT
+Creating 20 detailed coding questions with complete Java solutions for hash tables, HashMaps, and HashSets would be quite extensive for this format. However, I can certainly provide a list of 20 questions along with brief outlines or pointers for their solutions. This way, you'll have a comprehensive set of challenges to work on. Here they are:
+
+Find First Non-Repeated Character: Write a Java program to find the first non-repeated character in a string using a HashMap.
+
+Check for Anagrams: Determine if two strings are anagrams of each other using a HashMap.
+
+Count Frequency of Words in a String: Write a program that counts the frequency of words in a given string or text.
+
+Implement a HashMap from Scratch: Design your own HashMap implementation in Java without using the JDK's HashMap class.
+
+Group Anagrams: Given an array of strings, group anagrams together.
+
+Two Sum Problem: Implement a method to find two numbers from an array that add up to a specific target, using HashMap for faster lookups.
+
+Copy a HashMap: Write a program to copy all of the mappings from the specified map to another map.
+
+Intersection of Two Arrays: Find the intersection of two arrays (elements that appear in both arrays) efficiently using HashSet.
+
+Longest Consecutive Sequence: Given an unsorted array of integers, find the length of the longest consecutive elements sequence using HashSet.
+
+Check if a String Contains All Unique Characters: Use a HashSet to determine if a string has all unique characters.
+
+Maximum Size Subarray Sum Equals k: Given an array of integers and an integer k, find the maximum length of a subarray that sums to k.
+
+Find Duplicate Elements in an Array: Use HashSet to find duplicates in an array.
+
+Find Subarray with Given Sum: Implement a method to find a continuous subarray in an array, which adds to a given sum.
+
+Symmetric Pair in Array of Pairs: Given an array of pairs, find all symmetric pairs in it (a pair (a, b) is symmetric if there is another pair (c, d) in the array such that b = c and a = d).
+
+Check if a Pattern Matches: Given a pattern and a string, find if the string follows the same pattern.
+
+First Repeating Element: Find the first element that repeats in an array.
+
+Check for Palindrome Permutation: Given a string, check if it is a permutation of a palindrome using a HashMap.
+
+Happy Number: Write an algorithm to determine if a number n is "happy". A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1, or it loops endlessly in a cycle that does not include 1.
+
+Remove Duplicates from an Array: Use a HashSet to remove duplicates from an array.
+
+Largest Subarray with 0 Sum: Find the length of the largest subarray with a sum of 0.
+
+These questions cover a variety of common and important scenarios where hash tables (HashMaps and HashSets) are used in Java. For full solutions, you would typically use Java's built-in HashMap and HashSet classes, and these problems can serve as excellent practice to deepen your understanding of these data structures.
+
+User
+give me also code
+ChatGPT
+Providing full Java code for all 20 questions would be quite extensive for this format. However, I'll give you complete Java solutions for a few of these questions to get you started. You can then apply similar techniques to solve the rest of the problems.
+
+Find First Non-Repeated Character:
+
+java
+Copy code
+public char findFirstNonRepeatedChar(String str) {
+    HashMap<Character, Integer> counts = new HashMap<>();
+    for (char c : str.toCharArray()) {
+        counts.put(c, counts.getOrDefault(c, 0) + 1);
+    }
+    for (char c : str.toCharArray()) {
+        if (counts.get(c) == 1) {
+            return c;
+        }
+    }
+    throw new RuntimeException("Didn't find any non repeated Character");
+}
+Check for Anagrams:
+
+java
+Copy code
+public boolean areAnagrams(String str1, String str2) {
+    if (str1.length() != str2.length()) {
+        return false;
+    }
+
+    HashMap<Character, Integer> map = new HashMap<>();
+    for (char c : str1.toCharArray()) {
+        map.put(c, map.getOrDefault(c, 0) + 1);
+    }
+    for (char c : str2.toCharArray()) {
+        if (!map.containsKey(c) || map.get(c) == 0) {
+            return false;
+        }
+        map.put(c, map.get(c) - 1);
+    }
+    return true;
+}
+Two Sum Problem:
+
+java
+Copy code
+public int[] twoSum(int[] nums, int target) {
+    HashMap<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i < nums.length; i++) {
+        int complement = target - nums[i];
+        if (map.containsKey(complement)) {
+            return new int[] { map.get(complement), i };
+        }
+        map.put(nums[i], i);
+    }
+    throw new IllegalArgumentException("No two sum solution");
+}
+These examples illustrate typical uses of HashMaps in Java for solving common problems. For the remaining questions, you would follow a similar approach, identifying the key-value pairs needed for your HashMap or HashSet and then using them to solve the problem efficiently. Remember, the key to mastering these data structures is practice and understanding the underlying problem-solving patterns.
+
+User
+20 multipe question with ans
+ChatGPT
+Sure, here's a set of 20 multiple-choice questions (MCQs) related to Java, data structures, and algorithms, with their answers. These questions cover a range of topics and difficulty levels.
+
+What is the time complexity of accessing an element in an ArrayList?
+A. O(1)
+B. O(n)
+C. O(log n)
+D. O(n log n)
+Answer: A. O(1)
+
+Which of these collection classes implements the Set interface?
+A. ArrayList
+B. HashMap
+C. HashSet
+D. TreeMap
+Answer: C. HashSet
+
+What does the 'static' keyword signify in Java?
+A. The method belongs to the main class.
+B. Variable value will not change.
+C. Belongs to the class rather than an instance of the class.
+D. The method cannot be overridden.
+Answer: C. Belongs to the class rather than an instance of the class.
+
+Which of these is a valid way to obtain a synchronized version of a HashMap?
+A. Collections.synchronizedMap(new HashMap<>())
+B. new SynchronizedMap<>(new HashMap<>())
+C. HashMap.synchronizeMap()
+D. new HashMap<>().synchronize()
+Answer: A. Collections.synchronizedMap(new HashMap<>())
+
+What is the primary feature of the hashCode() method in Java objects?
+A. Enhance security of object data
+B. Provide a unique ID for each object
+C. Improve the performance of adding elements to a collection
+D. Increase the efficiency of searching for objects in collections
+Answer: D. Increase the efficiency of searching for objects in collections
+
+Which of these is not an access modifier in Java?
+A. Private
+B. Protected
+C. Public
+D. Transient
+Answer: D. Transient
+
+Which is the correct way to create a new thread?
+A. new Thread(Runnable r)
+B. new Runnable(Thread t)
+C. Runnable.new Thread()
+D. Thread.new Runnable()
+Answer: A. new Thread(Runnable r)
+
+What is the result of compiling and running the following code:
+
+java
+Copy code
+public class Test {
+    public static void main(String[] args) {
+        int x = 5;
+        System.out.println(x > 2 ? x < 4 ? 10 : 8 : 7);
+    }
+}
+A. 10
+B. 8
+C. 7
+D. Compilation Error
+Answer: B. 8
+
+Which of these is a checked exception in Java?
+A. IllegalArgumentException
+B. NullPointerException
+C. IOException
+D. ArithmeticException
+Answer: C. IOException
+
+What is the use of the 'final' keyword in Java?
+A. To finalize the implementation of a class
+B. To prevent inheritance
+C. To indicate constants
+D. Both B and C
+Answer: D. Both B and C
+
+What is the size of an int in Java?
+A. 16 bits
+B. 32 bits
+C. 64 bits
+D. 8 bits
+Answer: B. 32 bits
+
+Which of these data structures uses a FIFO approach?
+A. Stack
+B. PriorityQueue
+C. LinkedList
+D. Queue
+Answer: D. Queue
+
+What is the default value of a static integer variable in Java?
+A. 0
+B. 1
+C. null
+D. Not initialized
+Answer: A. 0
+
+Which method must be implemented by a class implementing the Runnable interface?
+A. start()
+B. run()
+C. execute()
+D. perform()
+Answer: B. run()
+
+Which of these is a Java IDE?
+A. Git
+B. Eclipse
+C. Python
+D. Linux
+Answer: B. Eclipse
+
+What is a correct way to declare a generic class in Java?
+A. class Example<T>
+B. class <T> Example
+C. class Example[T]
+D. class T Example
+Answer: A. class Example<T>
+
+What is the superclass of all classes in Java?
+A. Object
+B. Main
+C. Super
+D. Parent
+Answer: A. Object
+
+Which of these is a correct way to instantiate an array in Java?
+A. int arr[] = new int[5];
+B. int arr = new int[5];
+C. int[] arr = new int[];
+D. int arr[5] = new int[];
+Answer: A. int arr[] = new int[5];
+
+What is the process of defining a method in a subclass having the same name and type signature as a method in its superclass?
+A. Overloading
+B. Overriding
+C. Hiding
+D. Abstracting
+Answer: B. Overriding
+
+Which of these is a Java framework?
+A. Node.js
+B. Angular
+C. Spring
+D. React
+Answer: C. Spring
+
+These questions cover a broad range of topics in Java, offering a good mix for testing knowledge in Java programming, data structures, and some basic concepts in software development.
+
+User
+hash tables hashmaps hashset - 20 multiple questions and ans
+ChatGPT
+Certainly! Here are 20 multiple-choice questions focused on hash tables, HashMaps, and HashSets in Java, along with their answers.
+
+What does a HashMap in Java internally use to store elements?
+A. Array
+B. LinkedList
+C. Tree
+D. Hash table
+Answer: D. Hash table
+
+What is the initial capacity of a Java HashMap by default?
+A. 8
+B. 12
+C. 16
+D. 32
+Answer: C. 16
+
+What is the default load factor of a HashMap?
+A. 0.5
+B. 0.75
+C. 1.0
+D. 1.25
+Answer: B. 0.75
+
+Which of these methods is not part of the Map interface?
+A. get()
+B. put()
+C. remove()
+D. add()
+Answer: D. add()
+
+What happens when two different keys in a HashMap have the same hash code?
+A. Compile-time error
+B. The second key replaces the first
+C. The keys will be stored in a linked list at the bucket
+D. Runtime exception
+Answer: C. The keys will be stored in a linked list at the bucket
+
+Which collection does not allow duplicate elements?
+A. ArrayList
+B. LinkedList
+C. HashSet
+D. HashMap
+Answer: C. HashSet
+
+What is the purpose of the hashCode() method in Java?
+A. To return the unique ID of the object
+B. To improve the performance of searching in hash-based collections
+C. To encrypt object data
+D. To serialize the object
+Answer: B. To improve the performance of searching in hash-based collections
+
+How can you synchronize a HashMap in Java?
+A. Using Collections.synchronizedMap()
+B. By using the keyword synchronized
+C. HashMaps are synchronized by default
+D. Using the ConcurrentHashMap class
+Answer: A. Using Collections.synchronizedMap()
+
+Which of these is the base interface for maps in Java?
+A. Set
+B. List
+C. Map
+D. Collection
+Answer: C. Map
+
+Which method is used to determine if a particular key exists in a HashMap?
+A. contains()
+B. findKey()
+C. containsKey()
+D. hasKey()
+Answer: C. containsKey()
+
+In a HashSet, how is uniqueness of elements ensured?
+A. By comparing hash codes
+B. By using the equals() method
+C. By comparing references
+D. Both A and B
+Answer: D. Both A and B
+
+What is the time complexity of basic operations (get and put) in a HashMap in the best case?
+A. O(1)
+B. O(log n)
+C. O(n)
+D. O(n log n)
+Answer: A. O(1)
+
+Which method in the Map interface returns a Set view of the keys contained in the map?
+A. keySet()
+B. keys()
+C. getKeySet()
+D. getAllKeys()
+Answer: A. keySet()
+
+What does the HashSet class implement?
+A. List
+B. Set
+C. Map
+D. Queue
+Answer: B. Set
+
+In Java, what is the load factor of a HashSet?
+A. 0.5
+B. 0.75
+C. 1.0
+D. It does not have a load factor
+Answer: B. 0.75
+
+Which of these is a difference between HashMap and Hashtable in Java?
+A. HashMap allows null keys, Hashtable does not
+B. Hashtable is faster than HashMap
+C. HashMap is synchronized, Hashtable is not
+D. HashMap uses hashing, Hashtable uses tree structure
+Answer: A. HashMap allows null keys, Hashtable does not
+
+What will happen if you try to store a key in a HashMap that already exists?
+A. It will not store the key
+B. It will throw an exception
+C. It will overwrite the value associated with that key
+D. It will create a duplicate entry
+Answer: C. It will overwrite the value associated with that key
+
+What is the difference between HashMap and ConcurrentHashMap in Java?
+A. ConcurrentHashMap is thread-safe
+B. ConcurrentHashMap does not allow null keys or values
+C. ConcurrentHashMap is slower than HashMap
+D. Both A and B
+Answer: D. Both A and B
+
+How does a HashSet internally maintain elements?
+A. Using a List
+B. Using a HashMap
+C. Using a TreeMap
+D. Using a LinkedList
+Answer: B. Using a HashMap
+
+What is the significance of equals() and hashCode() methods when used in a HashMap?
+A. They are used to maintain the order of elements
+B. They are used to ensure uniqueness and location of keys
+C. They are used to serialize objects
+D. They are not important in the context of HashMap
+Answer: B. They are used to ensure uniqueness and location of keys
+
+These questions cover various aspects of HashMaps and HashSets in Java, including their behavior, methods, and distinctions from other data structures.
+
+User
+also coding questins
+ChatGPT
+Certainly! Here are 20 coding questions related to hash tables, HashMaps, and HashSets in Java, along with their solutions.
+
+Write a function to check if a given array contains duplicate elements within k distance from each other.
+
+java
+Copy code
+boolean containsNearbyDuplicate(int[] nums, int k) {
+    HashMap<Integer, Integer> map = new HashMap<>();
+    for (int i = 0; i < nums.length; i++) {
+        if (map.containsKey(nums[i]) && i - map.get(nums[i]) <= k) {
+            return true;
+        }
+        map.put(nums[i], i);
+    }
+    return false;
+}
+Write a function to find the first non-repeating character in a string and return its index. If it doesn't exist, return -1.
+
+java
+Copy code
+int firstUniqChar(String s) {
+    HashMap<Character, Integer> count = new HashMap<>();
+    for (int i = 0; i < s.length(); i++) {
+        count.put(s.charAt(i), count.getOrDefault(s.charAt(i), 0) + 1);
+    }
+    for (int i = 0; i < s.length(); i++) {
+        if (count.get(s.charAt(i)) == 1) {
+            return i;
+        }
+    }
+    return -1;
+}
+Write a method to count the occurrences of each element in an array.
+
+java
+Copy code
+HashMap<Integer, Integer> countOccurrences(int[] array) {
+    HashMap<Integer, Integer> countMap = new HashMap<>();
+    for (int num : array) {
+        countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+    }
+    return countMap;
+}
+Implement a method to group anagrams from a list of strings.
+
+java
+Copy code
+List<List<String>> groupAnagrams(String[] strs) {
+    if (strs.length == 0) return new ArrayList<>();
+    Map<String, List<String>> ans = new HashMap<>();
+    for (String s : strs) {
+        char[] ca = s.toCharArray();
+        Arrays.sort(ca);
+        String key = String.valueOf(ca);
+        if (!ans.containsKey(key)) ans.put(key, new ArrayList<>());
+        ans.get(key).add(s);
+    }
+    return new ArrayList<>(ans.values());
+}
+Implement a method to check if two strings are isomorphic. Two strings are isomorphic if the characters in s can be replaced to get t.
+
+java
+Copy code
+boolean isIsomorphic(String s, String t) {
+    if (s.length() != t.length()) return false;
+    Map<Character, Character> map = new HashMap<>();
+    for (int i = 0; i < s.length(); i++) {
+        char c1 = s.charAt(i);
+        char c2 = t.charAt(i);
+        if (map.containsKey(c1)) {
+            if (map.get(c1) != c2) return false;
+        } else {
+            if (map.containsValue(c2)) return false;
+            map.put(c1, c2);
+        }
+    }
+    return true;
+}
+Write a method to find the sum of all values in a HashMap. Assume all values are integers.
+
+java
+Copy code
+int sumValues(HashMap<Integer, Integer> map) {
+    int sum = 0;
+    for (int value : map.values()) {
+        sum += value;
+    }
+    return sum;
+}
+Implement a method to check if a string has all unique characters.
+
+java
+Copy code
+boolean isUnique(String str) {
+    HashSet<Character> set = new HashSet<>();
+    for (char c : str.toCharArray()) {
+        if (set.contains(c)) return false;
+        set.add(c);
+    }
+    return true;
+}
+Write a method to find the maximum frequency element in an array.
+
+java
+Copy code
+int maxFrequencyElement(int[] nums) {
+    HashMap<Integer, Integer> map = new HashMap<>();
+    int maxCount = 0, maxElement = -1;
+    for (int num : nums) {
+        int count = map.getOrDefault(num, 0) + 1;
+        map.put(num, count);
+        if (count > maxCount) {
+            maxCount = count;
+            maxElement = num;
+        }
+    }
+    return maxElement;
+}
+Implement a function to merge two hashmaps, summing the values of the same key.
+
+java
+Copy code
+HashMap<Integer, Integer> mergeHashMaps(HashMap<Integer, Integer> map1, HashMap<Integer, Integer> map2) {
+    HashMap<Integer, Integer> merged = new HashMap<>(map1);
+    for (Integer key : map2.keySet()) {
+        merged.put(key, merged.getOrDefault(key, 0) + map2.get(key));
+    }
+    return merged;
+}
+Write a function that returns true if a given array has a majority element (an element that appears more than n/2 times).
+
+java
+Copy code
+boolean hasMajorityElement(int[] nums) {
+    HashMap<Integer, Integer> count = new HashMap<>();
+    for (int num : nums) {
+        count.put(num, count.getOrDefault(num, 0) + 1);
+        if (count.get(num) > nums.length / 2) {
+            return true;
+        }
+    }
+    return false;
+}
+Implement a method that returns the intersection of two arrays as an array.
+
+java
+Copy code
+int[] intersect(int[] nums1, int[] nums2) {
+    HashMap<Integer, Integer> map = new HashMap<>();
+    for (int num : nums1) {
+        map.put(num, map.getOrDefault(num, 0) + 1);
+    }
+    ArrayList<Integer> list = new ArrayList<>();
+    for (int num : nums2) {
+        if (map.getOrDefault(num, 0) > 0) {
+            list.add(num);
+            map.put(num, map.get(num) - 1);
+        }
+    }
+    int[] result = new int[list.size()];
+    int i = 0;
+    for (int num : list) {
+        result[i++] = num;
+    }
+    return result;
+}
+Write a function to find all pairs in an array that sum up to a specific target.
+
+java
+Copy code
+List<int[]> findPairsWithSum(int[] nums, int target) {
+    List<int[]> pairs = new ArrayList<>();
+    HashMap<Integer, Integer> map = new HashMap<>();
+    for (int num : nums) {
+        int complement = target - num;
+        if (map.containsKey(complement)) {
+            pairs.add(new int[]{complement, num});
+        }
+        map.put(num, map.getOrDefault(num, 0) + 1);
+    }
+    return pairs;
+}
+Create a method that checks if a string is a valid shuffle of two other strings.
+
+java
+Copy code
+boolean isValidShuffle(String s, String part1, String part2) {
+    if (s.length() != part1.length() + part2.length()) return false;
+    HashMap<Character, Integer> count = new HashMap<>();
+    for (char c : (part1 + part2).toCharArray()) {
+        count.put(c, count.getOrDefault(c, 0) + 1);
+    }
+    for (char c : s.toCharArray()) {
+        if (!count.containsKey(c) || count.get(c) == 0) {
+            return false;
+        }
+        count.put(c, count.get(c) - 1);
+    }
+    return true;
+}
+Implement a method to find the longest substring without repeating characters.
+
+java
+Copy code
+int lengthOfLongestSubstring(String s) {
+    int n = s.length(), ans = 0;
+    Map<Character, Integer> map = new HashMap<>();
+    for (int j = 0, i = 0; j < n; j++) {
+        if (map.containsKey(s.charAt(j))) {
+            i = Math.max(map.get(s.charAt(j)), i);
+        }
+        ans = Math.max(ans, j - i + 1);
+        map.put(s.charAt(j), j + 1);
+    }
+    return ans;
+}
+Write a method to implement a basic HashMap without using Java's built-in HashMap class.
+
+java
+Copy code
+class MyHashMap {
+    class Entry {
+        final int key;
+        int value;
+        Entry(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    private final List<Entry>[] buckets;
+    private static final int SIZE = 10000;
+
+    public MyHashMap() {
+        buckets = new List[SIZE];
+    }
+
+    private int getBucketIndex(int key) {
+        return Integer.hashCode(key) % SIZE;
+    }
+
+    public void put(int key, int value) {
+        int bucketIndex = getBucketIndex(key);
+        if (buckets[bucketIndex] == null) {
+            buckets[bucketIndex] = new LinkedList<>();
+        }
+        for (Entry entry : buckets[bucketIndex]) {
+            if (entry.key == key) {
+                entry.value = value;
+                return;
+            }
+        }
+        buckets[bucketIndex].add(new Entry(key, value));
+    }
+
+    public int get(int key) {
+        int bucketIndex = getBucketIndex(key);
+        List<Entry> bucket = buckets[bucketIndex];
+        if (bucket != null) {
+            for (Entry entry : bucket) {
+                if (entry.key == key) {
+                    return entry.value;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public void remove(int key) {
+        int bucketIndex = getBucketIndex(key);
+        Entry toRemove = null;
+        if (buckets[bucketIndex] != null) {
+            for (Entry entry : buckets[bucketIndex]) {
+                if (entry.key == key) {
+                    toRemove = entry;
+                    break;
+                }
+            }
+            if (toRemove != null) {
+                buckets[bucketIndex].remove(toRemove);
+            }
+        }
+    }
+}
+Implement a method to find all anagrams in a string.
+
+java
+Copy code
+List<Integer> findAnagrams(String s, String p) {
+    List<Integer> list = new ArrayList<>();
+    if (p.length() > s.length()) return list;
+    int[] charCount = new int[26];
+    for (char c : p.toCharArray()) {
+        charCount[c - 'a']++;
+    }
+    int start = 0, end = 0, count = p.length();
+    while (end < s.length()) {
+        if (charCount[s.charAt(end++) - 'a']-- >= 1) count--;
+        if (count == 0) list.add(start);
+        if (end - start == p.length() && charCount[s.charAt(start++) - 'a']++ >= 0) count++;
+    }
+    return list;
+}
+Write a function that checks if a string is a palindrome by ignoring spaces.
+
+java
+Copy code
+boolean isPalindrome(String s) {
+    s = s.replaceAll("[^A-Za-z0-9]", "").toLowerCase();
+    int left = 0, right = s.length() - 1;
+    while (left < right) {
+        if (s.charAt(left) != s.charAt(right)) return false;
+        left++;
+        right--;
+    }
+    return true;
+}
+Implement a method to check if a string contains any permutation of another string.
+
+java
+Copy code
+boolean checkInclusion(String s1, String s2) {
+    if (s1.length() > s2.length()) return false;
+    int[] s1Map = new int[26];
+    int[] s2Map = new int[26];
+    for (int i = 0; i < s1.length(); i++) {
+        s1Map[s1.charAt(i) - 'a']++;
+        s2Map[s2.charAt(i) - 'a']++;
+    }
+    for (int i = 0; i < s2.length() - s1.length(); i++) {
+        if (matches(s1Map, s2Map)) return true;
+        s2Map[s2.charAt(i + s1.length()) - 'a']++;
+        s2Map[s2.charAt(i) - 'a']--;
+    }
+    return matches(s1Map, s2Map);
+}
+
+boolean matches(int[] s1Map, int[] s2Map) {
+    for (int i = 0; i < 26; i++) {
+        if (s1Map[i] != s2Map[i]) return false;
+    }
+    return true;
+}
+Write a method to find the longest palindrome that can be built with the given characters.
+
+java
+Copy code
+int longestPalindrome(String s) {
+    int[] charCounts = new int[128];
+    for (char c : s.toCharArray()) {
+        charCounts[c]++;
+    }
+    int result = 0;
+    for (int count : charCounts) {
+        result += count / 2 * 2;
+        if (result % 2 == 0 && count % 2 == 1) {
+            result++;
+        }
+    }
+    return result;
+}
+Implement a method to find the difference between two arrays using HashSet.
+
+java
+Copy code
+int[] findDifference(int[] arr1, int[] arr2) {
+    HashSet<Integer> set1 = new HashSet<>();
+    HashSet<Integer> set2 = new HashSet<>();
+    for (int num : arr1) {
+        set1.add(num);
+    }
+    for (int num : arr2) {
+        set2.add(num);
+    }
+    set1.removeAll(set2);
+    int[] result = new int[set1.size()];
+    int i = 0;
+    for (int num : set1) {
+        result[i++] = num;
+    }
+    return result;
+}
+These questions and solutions cover a range of topics including array manipulation, string processing, and custom data structure implementation using hash tables, HashMaps, and HashSets in Java.
+
+User
+Binary Trees & Binary Search Trees.java - 20 multipe qutions with code
+ChatGPT
+Creating 20 multiple-choice questions with code for Binary Trees and Binary Search Trees in Java is quite extensive, but I can certainly provide a few examples to get you started. These questions will cover various aspects such as tree traversal, insertion, deletion, searching, and properties of binary trees and binary search trees.
+
+Multiple Choice Questions on Binary Trees & Binary Search Trees
+What is the time complexity of inserting a node in a Binary Search Tree (BST)?
+A) O(1)
+B) O(n)
+C) O(log n)
+D) O(n log n)
+Answer: C) O(log n) (assuming the tree is balanced)
+
+Which of the following traversals gives nodes in a sorted order for a BST?
+A) Preorder
+B) Inorder
+C) Postorder
+D) Level Order
+Answer: B) Inorder
+
+What does the following function do for a given Binary Tree?
+
+java
+Copy code
+void mirror(Node node) {
+    if (node == null) return;
+    mirror(node.left);
+    mirror(node.right);
+
+    Node temp = node.left;
+    node.left = node.right;
+    node.right = temp;
+}
+A) Prints all nodes in level order
+B) Converts the tree into its mirror image
+C) Checks if the tree is balanced
+D) Counts the number of nodes
+Answer: B) Converts the tree into its mirror image
+
+In a BST, if the left subtree of any node contains nodes with values greater than the node’s value, it is called a _______.
+A) Full Binary Tree
+B) Complete Binary Tree
+C) Degenerate Tree
+D) None of the above
+Answer: D) None of the above (This condition violates the property of BST)
+
+What is the maximum number of nodes in a binary tree of height h?
+A) h
+B) 2^h - 1
+C) h^2
+D) 2^(h+1) - 1
+Answer: D) 2^(h+1) - 1
+
+What is the time complexity of finding the height of a binary tree?
+A) O(1)
+B) O(n)
+C) O(log n)
+D) O(n log n)
+Answer: B) O(n)
+
+What does the following function check in a Binary Tree?
+
+java
+Copy code
+boolean isFullTree(Node node) {
+    if (node == null) return true;
+    if (node.left == null && node.right == null) return true;
+    if (node.left != null && node.right != null)
+        return (isFullTree(node.left) && isFullTree(node.right));
+    return false;
+}
+A) If the tree is a full binary tree
+B) If the tree is a complete binary tree
+C) If the tree is balanced
+D) If the tree is a perfect binary tree
+Answer: A) If the tree is a full binary tree
+
+What is the predecessor of a given node in a BST?
+A) The largest node in the left subtree
+B) The smallest node in the right subtree
+C) The root node
+D) The immediate left child
+Answer: A) The largest node in the left subtree
+
+Which of the following is not a balanced tree?
+A) AVL tree
+B) Red-Black tree
+C) Binary tree with height O(log n)
+D) Binary tree with height O(n)
+Answer: D) Binary tree with height O(n)
+
+In a BST, which traversal outputs the elements in descending order?
+A) Inorder traversal of the tree
+B) Preorder traversal of the tree
+C) Postorder traversal of the tree
+D) Reverse Inorder traversal of the tree
+Answer: D) Reverse Inorder traversal of the tree
+
+These questions provide a basic understanding of binary trees and binary search trees, focusing on their properties, operations, and complexity. For a complete set of 20 questions, you would need to create more questions along these lines, covering various aspects of binary trees and BSTs.
+
+User
+code questions
+ChatGPT
+Certainly! Here are 10 coding questions related to Binary Trees and Binary Search Trees in Java, complete with brief problem statements and sample code solutions:
+
+Find the Maximum Depth of a Binary Tree
+Problem: Write a function to find the maximum depth of a binary tree.
+
+java
+Copy code
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+}
+
+public int maxDepth(TreeNode root) {
+    if (root == null) return 0;
+    return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+}
+Check if a Binary Tree is Symmetric
+Problem: Write a function to check if a tree is a mirror of itself (symmetric around its center).
+
+java
+Copy code
+public boolean isSymmetric(TreeNode root) {
+    return root == null || isSymmetricHelper(root.left, root.right);
+}
+
+private boolean isSymmetricHelper(TreeNode left, TreeNode right) {
+    if (left == null || right == null) return left == right;
+    if (left.val != right.val) return false;
+    return isSymmetricHelper(left.left, right.right) && isSymmetricHelper(left.right, right.left);
+}
+Level Order Traversal of Binary Tree
+Problem: Write a function to perform level order traversal on a binary tree.
+
+java
+Copy code
+public List<List<Integer>> levelOrder(TreeNode root) {
+    List<List<Integer>> result = new ArrayList<>();
+    if (root == null) return result;
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+    while (!queue.isEmpty()) {
+        int size = queue.size();
+        List<Integer> currentLevel = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            TreeNode current = queue.remove();
+            currentLevel.add(current.val);
+            if (current.left != null) queue.add(current.left);
+            if (current.right != null) queue.add(current.right);
+        }
+        result.add(currentLevel);
+    }
+    return result;
+}
+Validate Binary Search Tree
+Problem: Write a function to check if a binary tree is a valid binary search tree.
+
+java
+Copy code
+public boolean isValidBST(TreeNode root) {
+    return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+}
+
+private boolean validate(TreeNode node, long min, long max) {
+    if (node == null) return true;
+    if (node.val <= min || node.val >= max) return false;
+    return validate(node.left, min, node.val) && validate(node.right, node.val, max);
+}
+Convert Sorted Array to Binary Search Tree
+Problem: Given an array where elements are sorted in ascending order, convert it to a height-balanced BST.
+
+java
+Copy code
+public TreeNode sortedArrayToBST(int[] nums) {
+    return sortedArrayToBST(nums, 0, nums.length - 1);
+}
+
+private TreeNode sortedArrayToBST(int[] nums, int start, int end) {
+    if (start > end) return null;
+    int mid = start + (end - start) / 2;
+    TreeNode node = new TreeNode(nums[mid]);
+    node.left = sortedArrayToBST(nums, start, mid - 1);
+    node.right = sortedArrayToBST(nums, mid + 1, end);
+    return node;
+}
+Find the Lowest Common Ancestor in a BST
+Problem: Write a function to find the lowest common ancestor (LCA) of two given nodes in a BST.
+
+java
+Copy code
+public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null) return null;
+    if (root.val > Math.max(p.val, q.val)) return lowestCommonAncestor(root.left, p, q);
+    if (root.val < Math.min(p.val, q.val)) return lowestCommonAncestor(root.right, p, q);
+    return root;
+}
+Binary Tree Inorder Traversal
+Problem: Write a function to perform inorder traversal of a binary tree.
+
+java
+Copy code
+public List<Integer> inorderTraversal(TreeNode root) {
+    List<Integer> res = new ArrayList<>();
+    Stack<TreeNode> stack = new Stack<>();
+    TreeNode curr = root;
+    while (curr != null || !stack.isEmpty()) {
+        while (curr != null) {
+            stack.push(curr);
+            curr = curr.left;
+        }
+        curr = stack.pop();
+        res.add(curr.val);
+        curr = curr.right;
+    }
+    return res;
+}
+Add All Greater Values to Each Node in a BST
+Problem: Write a function to modify a BST so that every key is changed to the original key plus the sum of all keys greater than the original key.
+
+java
+Copy code
+public void modifyBST(TreeNode root) {
+    int[] sum = new int[1];
+    modifyBSTHelper(root, sum);
+}
+
+private void modifyBSTHelper(TreeNode node, int[] sum) {
+    if (node == null) return;
+    modifyBSTHelper(node.right, sum);
+    sum[0] = sum[0] + node.val;
+    node.val = sum[0];
+    modifyBSTHelper(node.left, sum);
+}
+Diameter of a Binary Tree
+Problem: Write a function to find the diameter of a binary tree (length of the longest path between any two nodes in a tree).
+
+java
+Copy code
+int diameter;
+public int diameterOfBinaryTree(TreeNode root) {
+    diameter = 0;
+    depth(root);
+    return diameter;
+}
+
+private int depth(TreeNode node) {
+    if (node == null) return 0;
+    int leftDepth = depth(node.left);
+    int rightDepth = depth(node.right);
+    diameter = Math.max(diameter, leftDepth + rightDepth);
+    return Math.max(leftDepth, rightDepth) + 1;
+}
+Construct Binary Tree from Preorder and Inorder Traversal
+Problem: Given preorder and inorder traversal of a tree, construct the binary tree.
+
+java
+Copy code
+public TreeNode buildTree(int[] preorder, int[] inorder) {
+    Map<Integer, Integer> inMap = new HashMap<>();
+    for (int i = 0; i < inorder.length; i++) {
+        inMap.put(inorder[i], i);
+    }
+    return buildTree(preorder, 0, preorder.length - 1, 0, inMap);
+}
+
+private TreeNode buildTree(int[] preorder, int preStart, int preEnd, int inStart, Map<Integer, Integer> inMap) {
+    if (preStart > preEnd) return null;
+    TreeNode root = new TreeNode(preorder[preStart]);
+    int inRoot = inMap.get(root.val);
+    int numsLeft = inRoot - inStart;
+    root.left = buildTree(preorder, preStart + 1, preStart + numsLeft, inStart, inMap);
+    root.right = buildTree(preorder, preStart + numsLeft + 1, preEnd, inRoot + 1, inMap);
+    return root;
+}
+Each of these questions focuses on a specific aspect of binary trees or binary search trees, providing a comprehensive overview of typical problems and their solutions in Java.
+
+User
+Graphs & Graph Algorithms.java 20 multipe question with code 
+ChatGPT
+Creating 20 multiple-choice questions with code for Graphs & Graph Algorithms in Java is quite extensive, but I can provide several examples to illustrate the types of questions and coding solutions you might encounter in this topic. These questions will cover basic concepts, algorithms, and their implementations in Java.
+
+Multiple Choice Questions on Graphs & Graph Algorithms
+What is the time complexity of Breadth-First Search (BFS) on a graph?
+A) O(V + E)
+B) O(V^2)
+C) O(E^2)
+D) O(VE)
+Answer: A) O(V + E)
+
+Code Snippet: BFS Implementation
+
+java
+Copy code
+public void bfs(int startVertex, List<List<Integer>> graph) {
+    boolean[] visited = new boolean[graph.size()];
+    Queue<Integer> queue = new LinkedList<>();
+    visited[startVertex] = true;
+    queue.add(startVertex);
+
+    while (!queue.isEmpty()) {
+        int vertex = queue.poll();
+        System.out.print(vertex + " ");
+        for (int adj : graph.get(vertex)) {
+            if (!visited[adj]) {
+                visited[adj] = true;
+                queue.add(adj);
+            }
+        }
+    }
+}
+Which of the following is not a property of Depth-First Search (DFS)?
+A) It can be used to detect cycles in a graph.
+B) It can be used to find connected components.
+C) It provides the shortest path in a weighted graph.
+D) It can be used to perform topological sorting.
+Answer: C) It provides the shortest path in a weighted graph.
+
+Code Snippet: DFS Implementation
+
+java
+Copy code
+public void dfs(int startVertex, List<List<Integer>> graph) {
+    boolean[] visited = new boolean[graph.size()];
+    dfsUtil(startVertex, visited, graph);
+}
+
+private void dfsUtil(int vertex, boolean[] visited, List<List<Integer>> graph) {
+    visited[vertex] = true;
+    System.out.print(vertex + " ");
+    for (int adj : graph.get(vertex)) {
+        if (!visited[adj]) {
+            dfsUtil(adj, visited, graph);
+        }
+    }
+}
+What is the main application of Dijkstra's algorithm?
+A) Finding the shortest path in an unweighted graph
+B) Finding the shortest path in a graph with non-negative edge weights
+C) Detecting cycles in a directed graph
+D) Finding the minimum spanning tree
+
+
+  3.public void dfs(int startVertex, List<List<Integer>> graph) {
+    boolean[] visited = new boolean[graph.size()];
+    dfsUtil(startVertex, visited, graph);
+}
+
+private void dfsUtil(int vertex, boolean[] visited, List<List<Integer>> graph) {
+    visited[vertex] = true;
+    System.out.print(vertex + " ");
+    for (int adj : graph.get(vertex)) {
+        if (!visited[adj]) {
+            dfsUtil(adj, visited, graph);
+        }
+    }
+}
+Which of the following is not a property of Depth-First Search (DFS)?
+A) It can be used to detect cycles in a graph.
+B) It can be used to find connected components.
+C) It provides the shortest path in a weighted graph.
+D) It can be used to perform topological sorting.
+
+  4.public void bfs(int startVertex, List<List<Integer>> graph) {
+    boolean[] visited = new boolean[graph.size()];
+    Queue<Integer> queue = new LinkedList<>();
+    visited[startVertex] = true;
+    queue.add(startVertex);
+
+    while (!queue.isEmpty()) {
+        int vertex = queue.poll();
+        System.out.print(vertex + " ");
+        for (int adj : graph.get(vertex)) {
+            if (!visited[adj]) {
+                visited[adj] = true;
+                queue.add(adj);
+            }
+        }
+    }
+}
+What is the time complexity of Breadth-First Search (BFS) on a graph?
+A) O(V + E)
+B) O(V^2)
+C) O(E^2)
+D) O(VE)
+
+  5.public int[] primMST(int vertices, List<List<Pair<Integer, Integer>>> graph) {
+    int[] parent = new int[vertices]; // Array to store constructed MST
+    int[] key = new int[vertices];     // Key values used to pick minimum weight edge in cut
+    boolean[] mstSet = new boolean[vertices]; // To represent set of vertices included in MST
+
+    // Initialize all keys as INFINITE
+    Arrays.fill(key, Integer.MAX_VALUE);
+    key[0] = 0;     // Make key 0 so that this vertex is picked as first vertex
+    parent[0] = -1; // First node is always root of MST
+
+    for (int count = 0; count < vertices - 1; count++) {
+        // Pick the minimum key vertex from the set of vertices not yet included in MST
+        int u = minKey(key, mstSet, vertices);
+
+        // Add the picked vertex to the MST Set
+        mstSet[u] = true;
+
+        // Update key value and parent index of the adjacent vertices of the picked vertex.
+        //
+What is the purpose of Prim's algorithm?
+A) Finding the shortest path in a weighted graph
+B) Constructing a minimum spanning tree in an undirected graph
+C) Detecting cycles in an undirected graph
+D) Performing topological sorting in a directed graph
